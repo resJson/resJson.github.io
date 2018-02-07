@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,位掩码," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="位掩码的介绍与使用一、小白鼠试毒有1000瓶水，其中有一瓶有毒，小白鼠只要尝一点带毒的水24小时后就会死亡，问至少要多少只小白鼠才能在24小时鉴别出哪瓶水有毒，刚看类似的问题，一般人一定是一脸懵逼的状态的，分析一下，喝了带毒的水24小时才会毒发，目前需求是要24小时就要鉴别出来哪瓶有毒，所以小白鼠只够喝一次水的时间，完全摸不到头脑…… 解决办法先直接来说解决问题的办法：将1000个瓶子使用二进制来">
+<meta name="keywords" content="java,位掩码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="位掩码的使用">
+<meta property="og:url" content="https://resjson.github.io/archives/2017/06/08/位掩码的使用/index.html">
+<meta property="og:site_name" content="Ray">
+<meta property="og:description" content="位掩码的介绍与使用一、小白鼠试毒有1000瓶水，其中有一瓶有毒，小白鼠只要尝一点带毒的水24小时后就会死亡，问至少要多少只小白鼠才能在24小时鉴别出哪瓶水有毒，刚看类似的问题，一般人一定是一脸懵逼的状态的，分析一下，喝了带毒的水24小时才会毒发，目前需求是要24小时就要鉴别出来哪瓶有毒，所以小白鼠只够喝一次水的时间，完全摸不到头脑…… 解决办法先直接来说解决问题的办法：将1000个瓶子使用二进制来">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask1.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask2.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask4.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask3.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask6.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask5.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask7.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask8.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask10.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask9.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask11.png">
+<meta property="og:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask12.png">
+<meta property="og:updated_time" content="2017-07-04T10:46:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="位掩码的使用">
+<meta name="twitter:description" content="位掩码的介绍与使用一、小白鼠试毒有1000瓶水，其中有一瓶有毒，小白鼠只要尝一点带毒的水24小时后就会死亡，问至少要多少只小白鼠才能在24小时鉴别出哪瓶水有毒，刚看类似的问题，一般人一定是一脸懵逼的状态的，分析一下，喝了带毒的水24小时才会毒发，目前需求是要24小时就要鉴别出来哪瓶有毒，所以小白鼠只够喝一次水的时间，完全摸不到头脑…… 解决办法先直接来说解决问题的办法：将1000个瓶子使用二进制来">
+<meta name="twitter:image" content="https://resjson.github.io/2017/06/08/位掩码的使用/bitmask1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://resjson.github.io/archives/2017/06/08/位掩码的使用/"/>
+
+
+
+
+
+  <title>位掩码的使用 | Ray</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ray</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">生活不只是眼前的苟且，还有诗和远方</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-tags " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://resjson.github.io/archives/2017/06/08/位掩码的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ray">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oq6fcpofs.bkt.clouddn.com/cat.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ray">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">位掩码的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T11:18:18+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="位掩码的介绍与使用"><a href="#位掩码的介绍与使用" class="headerlink" title="位掩码的介绍与使用"></a>位掩码的介绍与使用</h1><h2 id="一、小白鼠试毒"><a href="#一、小白鼠试毒" class="headerlink" title="一、小白鼠试毒"></a>一、小白鼠试毒</h2><p>有1000瓶水，其中有一瓶有毒，小白鼠只要尝一点带毒的水24小时后就会死亡，问至少要多少只小白鼠才能在24小时鉴别出哪瓶水有毒，刚看类似的问题，一般人一定是一脸懵逼的状态的，分析一下，喝了带毒的水24小时才会毒发，目前需求是要24小时就要鉴别出来哪瓶有毒，所以小白鼠只够喝一次水的时间，完全摸不到头脑……</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>先直接来说解决问题的办法：将1000个瓶子使用二进制来标识，比如 1111101000 （第1000瓶）……0000000001 （第1瓶），将所有二进制码竖直排列，每个数字位对齐，然后开始取水的混合液，这个混合液取法，如下图，每个对应位置的数字包含1的都取1滴，这样就取出了10份混合液，顺序按照二进制数字位置摆放，拿10只小白鼠，每只一杯混合液喝下，24小时后，查看小白鼠情况，从左边第一个位置开始，如果小白鼠死了，混合液标记为1，否则标记为0，全部统计完成后的二进制码在转换成十进制，就是有毒的水<br><img src="/2017/06/08/位掩码的使用/bitmask1.png" alt="图片1"><br><img src="/2017/06/08/位掩码的使用/bitmask2.png" alt="图片2"></p>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>逻辑上来解释这个问题，首先看瓶子，二进制数，10位能够表示的最大数位2的10次方-1=1023，大于1000，所以足够覆盖1000以内的二进制展示，有毒的那瓶水的二进制插入在竖直排列的数据中，混合液为获取当前二进制位上为1的所有水的混合，当小白鼠喝了over以后，说明有毒的水当前二进制位上的数值是1，否则，说明当前二进制的数值为0，所以当小白鼠最终是否over，根据转换后的十进制就能获取到有毒的那瓶水</p>
+<h2 id="二、位掩码介绍"><a href="#二、位掩码介绍" class="headerlink" title="二、位掩码介绍"></a>二、位掩码介绍</h2><p>这种处理问题的思路在java中有一个学名-位掩码，掩码（英语：Mask）在计算机学科及数字逻辑中指的是一串二进制数字，通过与目标数字的按位操作，达到屏蔽指定位而实现需求，java中有很多运算符，常用的有与(&amp;)、非(~)、或(|)、异或(^)、移位(&lt;&lt;和&gt;&gt;)等，部分位操作如下：</p>
+<p>非（～）<br>～  0000 0001<br>  = 1111 1110</p>
+<p>使用<br>int a = 1;<br>int b = ~a;</p>
+<p>或（|）<br>    0000 0001<br>|   0000 0010<br>  = 0000 0011</p>
+<p>使用<br>int a = 1;<br>int b = 2;<br>int c = a | b;</p>
+<p>与（&amp;）<br>&amp;   0000 0101<br>    0000 0110<br>  = 0000 0100</p>
+<p>使用<br>int a = 5;<br>int b = 6;<br>int c = a &amp; b;</p>
+<p>Ps：以上例子源于网络</p>
+<h2 id="位掩码使用介绍"><a href="#位掩码使用介绍" class="headerlink" title="位掩码使用介绍"></a>位掩码使用介绍</h2><p>bitmask中每个二进制位都有两种取值情况：0或者1，我们采用一个二进制位来记录状态，每一个二进制位表达一个状态，ps：这种做法相对于枚举(仅作用于表示状态的枚举)来说会更能节省内存，这样一个int型数据，可以表达32种状态，同时，也可以对多个状态进行CRUD的操作，常用的基本操作如下：<br>    a&amp;~b:   清除标志位b;<br>    a|b:    添加标志位b;<br>    a&amp;b:    取出标志位b;<br>    a^b:    取出a与b的不同部分;</p>
+<p>举个例子，每个项目可能都会用到用户证件信息，当时不同的项目需要得到支持的证件不同，比如火车票使用身份证，机票可能需要身份证和护照，这里用两种实现方式做个比较，代码如下：</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask4.png" alt="图片1"></p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask3.png" alt="图片1"></p>
+<p>以上例子第一种方式使用四个boolean值来保存所能支持的证件。<br>第二种方式每种证件使用了一个二进制数位来表示是否支持当前证件<br>ID_CARD = 1 &lt;&lt; 0    转换成    0001    左边数第一个二进制位表示为支持身份证<br>PASSPORT = 1 &lt;&lt; 1   转换成    0010    左边数第二个二进制位表示为支持护照<br>falg存储了当前能够支持的证件类型</p>
+<p>测试代码如下：<br>第一种boolean值使用方式</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask6.png" alt="图片1"></p>
+<p>第二种二进制位标识使用方式</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask5.png" alt="图片1"></p>
+<p>二进制打印结果如下：</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask7.png" alt="图片1"></p>
+<p>由于直接打算int值，显示结果位10进制数，转换为二进制可以看到对应的二进制位支持证件的情况</p>
+<h2 id="源代码中的位掩码使用"><a href="#源代码中的位掩码使用" class="headerlink" title="源代码中的位掩码使用"></a>源代码中的位掩码使用</h2><p>1、Class反射中的修饰符public、private等</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask8.png" alt="图片1"></p>
+<p>上面看出在Modifier中使用二进制标识了不同的修饰符字段，源码使用如下：</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask10.png" alt="图片1"></p>
+<p>2、Linkify中的文本类型url、电话、地址等</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask9.png" alt="图片1"></p>
+<p>定义了Text的各种文本类型，通过判断不同的类型执行不同的Links方法处理</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask11.png" alt="图片1"></p>
+<p>3、View中定义的可见值VISIBLE、INVISIBLE等</p>
+<p><img src="/2017/06/08/位掩码的使用/bitmask12.png" alt="图片1"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在 Android 的代码中有大量的 BitMask 的运用，像 View，MotionEvent ，使用BitMask能够减少内存的使用，不过只是相对来说，并不是不建议使用boolean值、枚举等方式来实现，每种方式都有自己的优势和特点，选择最适合的才是最重要的</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/位掩码/" rel="tag"># 位掩码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/08/基础篇-Activity的生命周期/" rel="prev" title="基础篇-Activity的生命周期">
+                基础篇-Activity的生命周期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+         <div id="uyan_frame"></div>
+    
+  </div>
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://oq6fcpofs.bkt.clouddn.com/cat.png"
+               alt="Ray" />
+          <p class="site-author-name" itemprop="name">Ray</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活不只是眼前的苟且，还有诗和远方</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/resJson" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#位掩码的介绍与使用"><span class="nav-number">1.</span> <span class="nav-text">位掩码的介绍与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、小白鼠试毒"><span class="nav-number">1.1.</span> <span class="nav-text">一、小白鼠试毒</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.1.1.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决思路"><span class="nav-number">1.1.2.</span> <span class="nav-text">解决思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、位掩码介绍"><span class="nav-number">1.2.</span> <span class="nav-text">二、位掩码介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位掩码使用介绍"><span class="nav-number">1.3.</span> <span class="nav-text">位掩码使用介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码中的位掩码使用"><span class="nav-number">1.4.</span> <span class="nav-text">源代码中的位掩码使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ray</span>
+</div>
+
+
+<div class="powered-by">
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+</div>
+
+<div class="theme-info">
+    <span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2136504"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2136504"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+</body>
+</html>
